@@ -1,1 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anshul Chaudhary | Senior Android Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { background-color: #0f172a; color: #f8fafc; }
+        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+        .accent-text { color: #38bdf8; }
+        .btn-primary { background-color: #38bdf8; color: #0f172a; transition: all 0.3s; }
+        .btn-primary:hover { background-color: #7dd3fc; transform: translateY(-2px); }
+    </style>
+</head>
+<body class="font-sans antialiased">
 
+    <nav class="fixed w-full z-50 glass py-4 px-6 flex justify-between items-center">
+        <h1 class="text-xl font-bold accent-text">AC.dev</h1>
+        <div class="space-x-6 hidden md:block">
+            <a href="#about" class="hover:text-sky-400">About</a>
+            <a href="#projects" class="hover:text-sky-400">Projects</a>
+            <a href="#experience" class="hover:text-sky-400">Experience</a>
+            <a href="mailto:anshul8298@gmail.com" class="btn-primary px-4 py-2 rounded-lg font-bold">Hire Me</a>
+        </div>
+    </nav>
+
+    <section id="about" class="pt-32 pb-20 px-6 max-w-5xl mx-auto text-center">
+        <h2 class="text-5xl md:text-7xl font-extrabold mb-6">Building <span class="accent-text">Scalable</span> Android Experiences</h2>
+        <p class="text-lg text-slate-400 mb-8 max-w-2xl mx-auto">
+            Senior Android Developer with 3.5+ years of expertise in Kotlin, Jetpack Compose, and KMP. 
+            Delivered 10+ commercial apps with 100k+ downloads.
+        </p>
+        <div class="flex justify-center space-x-4">
+            <a href="https://www.linkedin.com/in/anshul-chaudhary-51529a1bb/" target="_blank" class="text-2xl hover:text-sky-400"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/yourusername" target="_blank" class="text-2xl hover:text-sky-400"><i class="fab fa-github"></i></a>
+        </div>
+    </section>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 px-6 max-w-5xl mx-auto mb-20 text-center">
+        <div class="glass p-6 rounded-2xl">
+            <h3 class="text-3xl font-bold accent-text">3.5+</h3>
+            <p class="text-sm text-slate-400">Years Exp</p>
+        </div>
+        <div class="glass p-6 rounded-2xl">
+            <h3 class="text-3xl font-bold accent-text">10+</h3>
+            <p class="text-sm text-slate-400">Apps Shipped</p>
+        </div>
+        <div class="glass p-6 rounded-2xl">
+            <h3 class="text-3xl font-bold accent-text">100k+</h3>
+            <p class="text-sm text-slate-400">Downloads</p>
+        </div>
+        <div class="glass p-6 rounded-2xl">
+            <h3 class="text-3xl font-bold accent-text">99.8%</h3>
+            <p class="text-sm text-slate-400">Crash Free</p>
+        </div>
+    </div>
+
+    <section id="projects" class="px-6 max-w-5xl mx-auto mb-20">
+        <h3 class="text-3xl font-bold mb-10 border-b border-sky-900 pb-2">Featured Projects</h3>
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="glass p-6 rounded-2xl hover:border-sky-500 transition-colors">
+                <h4 class="text-xl font-bold mb-2">HappyTask</h4>
+                <p class="text-slate-400 text-sm mb-4">Multi-role service management platform with live tracking and WebSockets chat.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="bg-sky-900 text-sky-200 text-xs px-2 py-1 rounded">MVVM</span>
+                    <span class="bg-sky-900 text-sky-200 text-xs px-2 py-1 rounded">WebSockets</span>
+                </div>
+                <a href="https://play.google.com/store/apps/details?id=com.ht.happytask" class="text-sky-400 text-sm font-bold">View on Play Store →</a>
+            </div>
+            <div class="glass p-6 rounded-2xl hover:border-sky-500 transition-colors">
+                <h4 class="text-xl font-bold mb-2">Baoui (KMP)</h4>
+                <p class="text-slate-400 text-sm mb-4">Language learning app sharing 70% business logic between Android & iOS via Kotlin Multiplatform.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="bg-sky-900 text-sky-200 text-xs px-2 py-1 rounded">KMP</span>
+                    <span class="bg-sky-900 text-sky-200 text-xs px-2 py-1 rounded">Compose</span>
+                </div>
+                <a href="#" class="text-sky-400 text-sm font-bold">Case Study →</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="px-6 max-w-5xl mx-auto mb-20">
+        <h3 class="text-3xl font-bold mb-10 border-b border-sky-900 pb-2">Experience</h3>
+        <div class="space-y-8">
+            <div class="border-l-4 border-sky-500 pl-6">
+                <h4 class="text-xl font-bold">Senior Android Developer</h4>
+                <p class="accent-text text-sm">I-Next Web Technologies | 2024 - Present</p>
+                <p class="text-slate-400 mt-2">Leading mobile teams, architecting VoIP systems (Plivo), and improving scalability by 40% through modular Hilt architecture.</p>
+            </div>
+            <div class="border-l-4 border-slate-700 pl-6">
+                <h4 class="text-xl font-bold">Junior Android Developer</h4>
+                <p class="accent-text text-sm">OMVA Data Solutions | 2022 - 2024</p>
+                <p class="text-slate-400 mt-2">Migrated UI to Jetpack Compose (25% faster dev) and integrated multi-payment gateways for 15% better success rates.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="text-center py-10 border-t border-slate-800">
+        <p class="text-slate-500 text-sm">© 2026 Anshul Chaudhary. Built with Passion & Kotlin Logic.</p>
+    </footer>
+
+</body>
+</html>
