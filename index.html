@@ -1,305 +1,1273 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anshul Chaudhary | Senior Android Developer</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        dark: { 50:'#f8fafc',100:'#e2e8f0',200:'#cbd5e1',300:'#94a3b8',400:'#64748b',500:'#475569',600:'#334155',700:'#1e293b',800:'#0f172a',900:'#020617' },
+                        accent: { DEFAULT:'#38bdf8',light:'#7dd3fc',dark:'#0284c7',glow:'rgba(56,189,248,0.15)' },
+                        green: { accent:'#4ade80' },
+                        purple: { accent:'#a78bfa' },
+                        orange: { accent:'#fb923c' },
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body { background-color: #0f172a; color: #f8fafc; overflow-x: hidden; }
-        .glass { background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.08); }
-        .accent-text { color: #38bdf8; }
-        .btn-primary { background-color: #38bdf8; color: #0f172a; transition: all 0.3s ease; }
-        .btn-primary:hover { background-color: #7dd3fc; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4); }
-        .btn-outline { border: 1px solid #38bdf8; color: #38bdf8; transition: all 0.3s ease; }
-        .btn-outline:hover { background-color: rgba(56, 189, 248, 0.1); transform: translateY(-2px); }
-        .skill-badge { background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(14, 165, 233, 0.3); color: #7dd3fc; }
+        * { scroll-behavior: smooth; }
+        body { background-color: #020617; color: #f8fafc; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #38bdf8; border-radius: 3px; }
+        
+        /* Glass morphism */
+        .glass { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(56,189,248,0.08); }
+        .glass-card { background: rgba(30, 41, 59, 0.5); backdrop-filter: blur(12px); border: 1px solid rgba(56,189,248,0.1); transition: all 0.4s cubic-bezier(0.4,0,0.2,1); }
+        .glass-card:hover { border-color: rgba(56,189,248,0.3); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(56,189,248,0.1); }
+        
+        /* Gradient text */
+        .gradient-text { background: linear-gradient(135deg, #38bdf8, #a78bfa, #38bdf8); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: gradientShift 4s ease infinite; }
+        @keyframes gradientShift { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+        
+        /* Floating animation */
+        .float { animation: float 6s ease-in-out infinite; }
+        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-20px)} }
+        
+        /* Pulse glow */
+        .pulse-glow { animation: pulseGlow 2s ease-in-out infinite; }
+        @keyframes pulseGlow { 0%,100%{box-shadow:0 0 20px rgba(56,189,248,0.2)} 50%{box-shadow:0 0 40px rgba(56,189,248,0.4)} }
+        
+        /* Hero background */
+        .hero-bg { position: relative; overflow: hidden; }
+        .hero-bg::before { content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%; background: radial-gradient(circle at 30% 40%, rgba(56,189,248,0.08) 0%, transparent 50%), radial-gradient(circle at 70% 60%, rgba(167,139,250,0.06) 0%, transparent 50%); animation: rotateBg 30s linear infinite; }
+        @keyframes rotateBg { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+        
+        /* Grid pattern */
+        .grid-pattern { background-image: radial-gradient(rgba(56,189,248,0.06) 1px, transparent 1px); background-size: 40px 40px; }
+        
+        /* Skill bar animation */
+        .skill-fill { transition: width 1.5s cubic-bezier(0.4,0,0.2,1); width: 0; }
+        .skill-fill.animate { width: var(--fill); }
+        
+        /* Fade in up */
+        .fade-up { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.4,0,0.2,1); }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+        
+        /* Stagger children */
+        .stagger > *:nth-child(1) { transition-delay: 0.1s; }
+        .stagger > *:nth-child(2) { transition-delay: 0.2s; }
+        .stagger > *:nth-child(3) { transition-delay: 0.3s; }
+        .stagger > *:nth-child(4) { transition-delay: 0.4s; }
+        .stagger > *:nth-child(5) { transition-delay: 0.5s; }
+        .stagger > *:nth-child(6) { transition-delay: 0.6s; }
+        
+        /* Project card images */
+        .project-screenshots { display: flex; gap: 12px; overflow-x: auto; padding: 12px 0; scroll-snap-type: x mandatory; -ms-overflow-style: none; scrollbar-width: none; }
+        .project-screenshots::-webkit-scrollbar { display: none; }
+        .project-screenshots img { scroll-snap-align: start; border-radius: 12px; height: 280px; width: auto; object-fit: cover; flex-shrink: 0; border: 1px solid rgba(56,189,248,0.15); transition: transform 0.3s; }
+        .project-screenshots img:hover { transform: scale(1.02); }
+        
+        /* Timeline */
+        .timeline-line { position: relative; }
+        .timeline-line::before { content:''; position:absolute; left:0; top:0; bottom:0; width:2px; background: linear-gradient(to bottom, #38bdf8, #a78bfa, transparent); }
+        
+        /* Tag pill */
+        .tag { background: rgba(56,189,248,0.1); color: #7dd3fc; border: 1px solid rgba(56,189,248,0.2); font-size: 0.75rem; padding: 4px 12px; border-radius: 9999px; font-weight: 500; white-space: nowrap; }
+        
+        /* Button styles */
+        .btn-primary { background: linear-gradient(135deg, #0284c7, #38bdf8); color: #fff; font-weight: 600; padding: 12px 28px; border-radius: 12px; transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 40px rgba(56,189,248,0.3); }
+        .btn-outline { border: 1px solid rgba(56,189,248,0.3); color: #38bdf8; font-weight: 600; padding: 12px 28px; border-radius: 12px; transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-outline:hover { background: rgba(56,189,248,0.1); transform: translateY(-2px); }
+        
+        /* Marquee */
+        .marquee { display: flex; animation: marquee 30s linear infinite; }
+        @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+        
+        /* Nav active */
+        .nav-link { position: relative; }
+        .nav-link::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:2px; background:#38bdf8; transition:width 0.3s; }
+        .nav-link:hover::after, .nav-link.active::after { width:100%; }
+        
+        /* Mobile menu */
+        .mobile-menu { transform: translateX(100%); transition: transform 0.3s ease; }
+        .mobile-menu.open { transform: translateX(0); }
+        
+        /* Typing cursor */
+        .cursor { display: inline-block; width: 3px; height: 1em; background: #38bdf8; margin-left: 4px; animation: blink 1s step-end infinite; vertical-align: text-bottom; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+        
+        /* Stat counter */
+        .stat-number { font-variant-numeric: tabular-nums; }
+        
+        /* Screenshot gallery lightbox */
+        .lightbox { position:fixed; inset:0; background:rgba(0,0,0,0.9); z-index:100; display:none; align-items:center; justify-content:center; }
+        .lightbox.active { display:flex; }
+        .lightbox img { max-width:90vw; max-height:90vh; border-radius:16px; }
     </style>
 </head>
-<body class="font-sans antialiased selection:bg-sky-500 selection:text-white">
+<body class="grid-pattern">
 
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 glass py-4 px-6 md:px-12 flex justify-between items-center">
-        <h1 class="text-2xl font-black accent-text tracking-tighter">AC<span class="text-white">.dev</span></h1>
-        <div class="space-x-8 hidden md:flex items-center text-sm font-medium">
-            <a href="#about" class="hover:text-sky-400 transition-colors">About</a>
-            <a href="#skills" class="hover:text-sky-400 transition-colors">Skills</a>
-            <a href="#projects" class="hover:text-sky-400 transition-colors">Projects</a>
-            <a href="#experience" class="hover:text-sky-400 transition-colors">Experience</a>
-            <a href="mailto:anshul8298@gmail.com" class="btn-primary px-5 py-2.5 rounded-lg font-bold">Let's Talk</a>
+    <!-- ===== NAVBAR ===== -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300" style="background:transparent;">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="flex items-center gap-2">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-accent to-purple-accent flex items-center justify-center font-bold text-dark-900 text-lg">A</div>
+                <span class="font-bold text-lg hidden sm:block">Anshul<span class="text-accent">.dev</span></span>
+            </a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#about" class="nav-link text-sm font-medium text-dark-200 hover:text-white transition">About</a>
+                <a href="#skills" class="nav-link text-sm font-medium text-dark-200 hover:text-white transition">Skills</a>
+                <a href="#projects" class="nav-link text-sm font-medium text-dark-200 hover:text-white transition">Projects</a>
+                <a href="#experience" class="nav-link text-sm font-medium text-dark-200 hover:text-white transition">Experience</a>
+                <a href="#contact" class="nav-link text-sm font-medium text-dark-200 hover:text-white transition">Contact</a>
+                <a href="mailto:anshul8298@gmail.com" class="btn-primary text-sm !py-2.5 !px-5">
+                    <i class="fas fa-paper-plane text-xs"></i> Hire Me
+                </a>
+            </div>
+            <button id="menuBtn" class="md:hidden text-2xl text-white">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="about" class="pt-40 pb-20 px-6 max-w-6xl mx-auto text-center">
-        <div class="inline-block mb-4 px-4 py-1 rounded-full glass text-sky-400 text-sm font-semibold tracking-wide uppercase">
-            Senior Android Developer
-        </div>
-        <h2 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
-            Building <span class="accent-text">Scalable</span> & <br class="hidden md:block"/> High-Performance Mobile Apps
-        </h2>
-        <p class="text-lg text-slate-400 mb-10 max-w-3xl mx-auto leading-relaxed">
-            4+ years of expertise in crafting world-class Android applications using <b>Kotlin, Jetpack Compose,</b> and <b>KMP</b>. 
-            I specialize in clean architecture, real-time systems, and delivering crash-free experiences. Shipped 10+ commercial apps with 100k+ downloads.
-        </p>
-        <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-12">
-            <a href="mailto:anshul8298@gmail.com" class="btn-primary px-8 py-3 rounded-xl font-bold text-lg w-full sm:w-auto"><i class="fas fa-envelope mr-2"></i> Hire Me</a>
-            <a href="tel:+918219253798" class="btn-outline px-8 py-3 rounded-xl font-bold text-lg w-full sm:w-auto"><i class="fas fa-phone mr-2"></i> +91-8219253798</a>
-        </div>
-        <div class="flex justify-center space-x-6">
-            <a href="https://www.linkedin.com/in/anshul-chaudhary-51529a1bb/" target="_blank" class="text-3xl text-slate-400 hover:text-sky-400 transition-colors"><i class="fab fa-linkedin"></i></a>
-            <a href="mailto:anshul8298@gmail.com" class="text-3xl text-slate-400 hover:text-sky-400 transition-colors"><i class="fas fa-envelope"></i></a>
-            <a href="#" class="text-3xl text-slate-400 hover:text-sky-400 transition-colors"><i class="fab fa-github"></i></a>
-        </div>
-    </section>
-
-    <!-- Stats -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 px-6 max-w-6xl mx-auto mb-24 text-center">
-        <div class="glass p-8 rounded-2xl hover:bg-slate-800/50 transition-colors">
-            <h3 class="text-4xl font-black accent-text mb-1">4+</h3>
-            <p class="text-sm text-slate-400 font-medium uppercase tracking-wider">Years Exp.</p>
-        </div>
-        <div class="glass p-8 rounded-2xl hover:bg-slate-800/50 transition-colors">
-            <h3 class="text-4xl font-black accent-text mb-1">10+</h3>
-            <p class="text-sm text-slate-400 font-medium uppercase tracking-wider">Apps Shipped</p>
-        </div>
-        <div class="glass p-8 rounded-2xl hover:bg-slate-800/50 transition-colors">
-            <h3 class="text-4xl font-black accent-text mb-1">100k+</h3>
-            <p class="text-sm text-slate-400 font-medium uppercase tracking-wider">Downloads</p>
-        </div>
-        <div class="glass p-8 rounded-2xl hover:bg-slate-800/50 transition-colors">
-            <h3 class="text-4xl font-black accent-text mb-1">99.8%</h3>
-            <p class="text-sm text-slate-400 font-medium uppercase tracking-wider">Crash Free</p>
-        </div>
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu fixed inset-0 z-50 glass flex flex-col items-center justify-center gap-8">
+        <button id="closeMenu" class="absolute top-6 right-6 text-3xl text-white"><i class="fas fa-times"></i></button>
+        <a href="#about" class="text-2xl font-semibold hover:text-accent transition mobile-link">About</a>
+        <a href="#skills" class="text-2xl font-semibold hover:text-accent transition mobile-link">Skills</a>
+        <a href="#projects" class="text-2xl font-semibold hover:text-accent transition mobile-link">Projects</a>
+        <a href="#experience" class="text-2xl font-semibold hover:text-accent transition mobile-link">Experience</a>
+        <a href="#contact" class="text-2xl font-semibold hover:text-accent transition mobile-link">Contact</a>
+        <a href="mailto:anshul8298@gmail.com" class="btn-primary text-lg mt-4"><i class="fas fa-paper-plane"></i> Hire Me</a>
     </div>
 
-    <!-- Skills Section -->
-    <section id="skills" class="px-6 max-w-6xl mx-auto mb-24">
-        <div class="flex items-center gap-4 mb-10">
-            <h3 class="text-3xl font-bold">Technical Arsenal</h3>
-            <div class="h-px bg-slate-700 flex-grow"></div>
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero-bg min-h-screen flex items-center relative">
+        <div class="max-w-7xl mx-auto px-6 py-32 grid lg:grid-cols-2 gap-12 items-center w-full">
+            <div class="fade-up">
+                <div class="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-2 mb-6">
+                    <span class="w-2 h-2 rounded-full bg-green-accent animate-pulse"></span>
+                    <span class="text-sm font-medium text-accent">Available for new projects</span>
+                </div>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight mb-6">
+                    Building<br>
+                    <span class="gradient-text">Scalable Android</span><br>
+                    Experiences<span class="cursor"></span>
+                </h1>
+                <p class="text-dark-300 text-lg max-w-xl mb-8 leading-relaxed">
+                    Senior Android Developer with <strong class="text-white">4+ years</strong> crafting high-performance apps in 
+                    <strong class="text-accent">Kotlin</strong>, <strong class="text-accent">Jetpack Compose</strong>, and 
+                    <strong class="text-accent">KMP</strong>. Delivered <strong class="text-white">10+ apps</strong> with 
+                    <strong class="text-white">100k+ downloads</strong> on Google Play.
+                </p>
+                <div class="flex flex-wrap gap-4 mb-10">
+                    <a href="#projects" class="btn-primary">
+                        <i class="fas fa-rocket"></i> View My Work
+                    </a>
+                    <a href="#contact" class="btn-outline">
+                        <i class="fas fa-comments"></i> Let's Talk
+                    </a>
+                </div>
+                <div class="flex items-center gap-6">
+                    <a href="https://www.linkedin.com/in/anshul-chaudhary-51529a1bb/" target="_blank" class="w-11 h-11 rounded-xl glass-card flex items-center justify-center text-dark-300 hover:text-accent hover:border-accent/40 transition">
+                        <i class="fab fa-linkedin-in text-lg"></i>
+                    </a>
+                    <a href="https://github.com/anshulchaudhary" target="_blank" class="w-11 h-11 rounded-xl glass-card flex items-center justify-center text-dark-300 hover:text-accent hover:border-accent/40 transition">
+                        <i class="fab fa-github text-lg"></i>
+                    </a>
+                    <a href="https://play.google.com/store/apps/developer?id=Anshul" target="_blank" class="w-11 h-11 rounded-xl glass-card flex items-center justify-center text-dark-300 hover:text-accent hover:border-accent/40 transition">
+                        <i class="fab fa-google-play text-lg"></i>
+                    </a>
+                    <a href="mailto:anshul8298@gmail.com" class="w-11 h-11 rounded-xl glass-card flex items-center justify-center text-dark-300 hover:text-accent hover:border-accent/40 transition">
+                        <i class="fas fa-envelope text-lg"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="hidden lg:flex justify-center items-center relative">
+                <div class="relative">
+                    <!-- Decorative code block -->
+                    <div class="glass-card rounded-2xl p-6 font-mono text-sm float max-w-md">
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="w-3 h-3 rounded-full bg-red-500"></span>
+                            <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+                            <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                            <span class="ml-4 text-dark-400 text-xs">AnshulDev.kt</span>
+                        </div>
+                        <pre class="text-dark-200 leading-relaxed"><code><span class="text-purple-accent">class</span> <span class="text-accent">AnshulChaudhary</span> {
+    <span class="text-dark-400">val</span> role = <span class="text-green-accent">"Senior Android Dev"</span>
+    <span class="text-dark-400">val</span> experience = <span class="text-orange-accent">4</span>.<span class="text-dark-300">years</span>
+    <span class="text-dark-400">val</span> appsShipped = <span class="text-orange-accent">10</span>+
+    <span class="text-dark-400">val</span> downloads = <span class="text-orange-accent">100_000</span>+
+    <span class="text-dark-400">val</span> crashFreeRate = <span class="text-orange-accent">99.8</span><span class="text-dark-300">%</span>
+    
+    <span class="text-purple-accent">fun</span> <span class="text-accent">buildAmazingApps</span>() {
+        <span class="text-dark-400">// Let's create something</span>
+        <span class="text-dark-400">// extraordinary together</span> 🚀
+    }
+}</code></pre>
+                    </div>
+                    <!-- Floating badges -->
+                    <div class="absolute -top-4 -right-4 glass-card rounded-xl px-4 py-2 pulse-glow">
+                        <span class="text-accent font-bold text-sm">Kotlin</span>
+                    </div>
+                    <div class="absolute -bottom-4 -left-4 glass-card rounded-xl px-4 py-2" style="animation: float 5s ease-in-out infinite 1s;">
+                        <span class="text-purple-accent font-bold text-sm">Compose</span>
+                    </div>
+                    <div class="absolute top-1/2 -right-8 glass-card rounded-xl px-4 py-2" style="animation: float 7s ease-in-out infinite 2s;">
+                        <span class="text-green-accent font-bold text-sm">KMP</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="grid md:grid-cols-3 gap-6">
-            <div class="glass p-6 rounded-2xl">
-                <h4 class="text-lg font-bold mb-4 text-white"><i class="fas fa-code text-sky-400 mr-2"></i> Languages & UI</h4>
-                <div class="flex flex-wrap gap-2">
-                    <span class="skill-badge text-xs px-3 py-1.5 rounded-full font-medium">Kotlin (Android & KMP)</span>
-                    <span class="skill-badge text-xs px-3 py-1.5 rounded-full font-medium">Java</span>
-                    <span class="skill-badge text-xs px-3 py-1.5 rounded-full font-medium">Jetpack Compose</span>
-                    <span class="skill-badge text-xs px-3 py-1.5 rounded-full font-medium">XML / Material 3</span>
-                </div>
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-dark-400">
+            <span class="text-xs font-medium">Scroll to explore</span>
+            <div class="w-5 h-8 rounded-full border-2 border-dark-400 flex justify-center pt-1.5">
+                <div class="w-1 h-2 rounded-full bg-accent animate-bounce"></div>
             </div>
-            <div class="glass p-6 rounded-2xl">
-                <h4 class="text-lg font-bold mb-4 text-white"><i class="fas fa-sitemap text-sky-400 mr-2"></i> Architecture & Core</h4>
-                <div class="flex flex-wrap gap-2">
-                    <span class="skill-badge text-xs px-3 py-1.5 rounded-full font-medium">MVVM / MVI</span>
-                    <span class="skill-badge text-xs px-3 py-1.5 rounded-full font-medium">Clean Architecture</span>
-                    <span class="skill-badge text-xs px-3 py-1.5 rounded-full font-medium">Hilt / Dagger</span>
-                    <span class="skill-badge text-xs px-3 py-1.5 rounded-full font-medium">Coroutines & Flow</span>
+        </div>
+    </section>
+
+    <!-- ===== STATS SECTION ===== -->
+    <section class="py-12 border-y border-dark-700/50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 fade-up">
+                <div class="text-center p-6">
+                    <h3 class="text-4xl md:text-5xl font-black gradient-text stat-number" data-target="4">0+</h3>
+                    <p class="text-dark-400 text-sm mt-2 font-medium">Years Experience</p>
                 </div>
-            </div>
-            <div class="glass p-6 rounded-2xl">
-                <h4 class="text-lg font-bold mb-4 text-white"><i class="fas fa-network-wired text-sky-400 mr-2"></i> Network & Tools</h4>
-                <div class="flex flex-wrap gap-2">
-                    <span class="skill-badge text-xs px-3 py-1.5 rounded-full font-medium">Retrofit / REST</span>
-                    <span class="skill-badge text-xs px-3 py-1.5 rounded-full font-medium">WebSockets / Socket.IO</span>
-                    <span class="skill-badge text-xs px-3 py-1.5 rounded-full font-medium">Firebase / Room DB</span>
-                    <span class="skill-badge text-xs px-3 py-1.5 rounded-full font-medium">Git / CI/CD</span>
+                <div class="text-center p-6">
+                    <h3 class="text-4xl md:text-5xl font-black gradient-text stat-number" data-target="10">0+</h3>
+                    <p class="text-dark-400 text-sm mt-2 font-medium">Apps Shipped</p>
+                </div>
+                <div class="text-center p-6">
+                    <h3 class="text-4xl md:text-5xl font-black gradient-text stat-number" data-target="100">0k+</h3>
+                    <p class="text-dark-400 text-sm mt-2 font-medium">Total Downloads</p>
+                </div>
+                <div class="text-center p-6">
+                    <h3 class="text-4xl md:text-5xl font-black gradient-text stat-number">99.8%</h3>
+                    <p class="text-dark-400 text-sm mt-2 font-medium">Crash-Free Rate</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="px-6 max-w-6xl mx-auto mb-24">
-        <div class="flex items-center gap-4 mb-10">
-            <h3 class="text-3xl font-bold">Featured Projects</h3>
-            <div class="h-px bg-slate-700 flex-grow"></div>
+    <!-- ===== ABOUT SECTION ===== -->
+    <section id="about" class="py-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="fade-up">
+                    <span class="text-accent font-mono text-sm font-semibold tracking-wider">// ABOUT ME</span>
+                    <h2 class="text-3xl md:text-4xl font-bold mt-3 mb-6">Passionate about crafting<br><span class="gradient-text">pixel-perfect</span> mobile apps</h2>
+                    <div class="space-y-4 text-dark-300 leading-relaxed">
+                        <p>
+                            I'm a Senior Android Developer based in <strong class="text-white">Shimla, Himachal Pradesh</strong>, with a deep passion for building 
+                            mobile applications that make a real difference. With <strong class="text-accent">4+ years</strong> of hands-on experience, I specialize 
+                            in crafting scalable, high-performance Android apps using modern technologies.
+                        </p>
+                        <p>
+                            My expertise spans <strong class="text-white">Kotlin, Jetpack Compose, Kotlin Multiplatform (KMP)</strong>, and architectural 
+                            patterns like <strong class="text-white">MVVM, MVI, and Clean Architecture</strong>. I've successfully delivered 10+ commercial 
+                            applications, achieving over 100,000 downloads on Google Play.
+                        </p>
+                        <p>
+                            I thrive on solving complex problems — from architecting <strong class="text-white">VoIP systems</strong> and 
+                            <strong class="text-white">real-time chat platforms</strong> to building <strong class="text-white">offline-first</strong> 
+                            architectures and <strong class="text-white">cross-platform solutions</strong>. I'm dedicated to writing clean, testable, 
+                            and maintainable code that delivers exceptional user experiences.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-4 mt-8">
+                        <a href="mailto:anshul8298@gmail.com" class="btn-primary text-sm">
+                            <i class="fas fa-envelope"></i> anshul8298@gmail.com
+                        </a>
+                        <a href="tel:+918219253798" class="btn-outline text-sm">
+                            <i class="fas fa-phone"></i> +91-8219253798
+                        </a>
+                    </div>
+                </div>
+                <div class="fade-up">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="glass-card rounded-2xl p-6 text-center">
+                            <div class="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center mx-auto mb-3">
+                                <i class="fab fa-android text-2xl text-accent"></i>
+                            </div>
+                            <h4 class="font-bold text-sm">Native Android</h4>
+                            <p class="text-dark-400 text-xs mt-1">Kotlin & Java</p>
+                        </div>
+                        <div class="glass-card rounded-2xl p-6 text-center">
+                            <div class="w-14 h-14 rounded-xl bg-purple-accent/10 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-palette text-2xl text-purple-accent"></i>
+                            </div>
+                            <h4 class="font-bold text-sm">Jetpack Compose</h4>
+                            <p class="text-dark-400 text-xs mt-1">Modern UI</p>
+                        </div>
+                        <div class="glass-card rounded-2xl p-6 text-center">
+                            <div class="w-14 h-14 rounded-xl bg-green-accent/10 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-code-branch text-2xl text-green-accent"></i>
+                            </div>
+                            <h4 class="font-bold text-sm">KMP</h4>
+                            <p class="text-dark-400 text-xs mt-1">Cross-Platform</p>
+                        </div>
+                        <div class="glass-card rounded-2xl p-6 text-center">
+                            <div class="w-14 h-14 rounded-xl bg-orange-accent/10 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-cubes text-2xl text-orange-accent"></i>
+                            </div>
+                            <h4 class="font-bold text-sm">Clean Arch</h4>
+                            <p class="text-dark-400 text-xs mt-1">MVVM / MVI</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        <div class="grid lg:grid-cols-2 gap-8">
+    </section>
+
+    <!-- ===== SKILLS SECTION ===== -->
+    <section id="skills" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 fade-up">
+                <span class="text-accent font-mono text-sm font-semibold tracking-wider">// TECH STACK</span>
+                <h2 class="text-3xl md:text-4xl font-bold mt-3">Technologies I <span class="gradient-text">Master</span></h2>
+            </div>
             
-            <!-- Project 1 -->
-            <div class="glass rounded-2xl overflow-hidden hover:border-sky-500 transition-all duration-300 hover:-translate-y-2 group flex flex-col">
-                <div class="h-64 bg-slate-800 overflow-hidden relative">
-                    <!-- ADD YOUR HAPPYTASK IMAGE HERE -->
-                    <img src="happytask.png" alt="HappyTask UI" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
-                </div>
-                <div class="p-6 flex-grow flex flex-col">
-                    <h4 class="text-2xl font-bold mb-2">HappyTask <span class="text-sm font-normal text-slate-400 ml-2">Service Platform</span></h4>
-                    <p class="text-slate-400 text-sm mb-4 flex-grow">Architected a multi-role app (provider, client, team) featuring calendar scheduling, live tracking, and real-time chat via WebSockets.</p>
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="bg-slate-800 text-slate-300 border border-slate-600 text-xs px-2 py-1 rounded">MVVM</span>
-                        <span class="bg-slate-800 text-slate-300 border border-slate-600 text-xs px-2 py-1 rounded">WebSockets</span>
-                        <span class="bg-slate-800 text-slate-300 border border-slate-600 text-xs px-2 py-1 rounded">Live Tracking</span>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 stagger fade-up">
+                <!-- Languages -->
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
+                            <i class="fas fa-code text-accent"></i>
+                        </div>
+                        <h4 class="font-bold">Languages</h4>
                     </div>
-                    <a href="https://play.google.com/store/apps/details?id=com.ht.happytask" target="_blank" class="text-sky-400 text-sm font-bold hover:text-sky-300 inline-flex items-center"><i class="fab fa-google-play mr-2"></i> View on Play Store &rarr;</a>
-                </div>
-            </div>
-
-            <!-- Project 2 -->
-            <div class="glass rounded-2xl overflow-hidden hover:border-sky-500 transition-all duration-300 hover:-translate-y-2 group flex flex-col">
-                <div class="h-64 bg-slate-800 overflow-hidden relative">
-                    <!-- ADD YOUR BAOUI IMAGE HERE -->
-                    <img src="baoui.png" alt="Baoui UI" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
-                </div>
-                <div class="p-6 flex-grow flex flex-col">
-                    <h4 class="text-2xl font-bold mb-2">Baoui <span class="text-sm font-normal text-slate-400 ml-2">Language Learning</span></h4>
-                    <p class="text-slate-400 text-sm mb-4 flex-grow">Built using Kotlin Multiplatform (KMP) to share 70% of business logic (progress, subscriptions) between Android and iOS. Intuitive UI and high-quality media streaming.</p>
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="bg-slate-800 text-slate-300 border border-slate-600 text-xs px-2 py-1 rounded">KMP</span>
-                        <span class="bg-slate-800 text-slate-300 border border-slate-600 text-xs px-2 py-1 rounded">Jetpack Compose</span>
-                        <span class="bg-slate-800 text-slate-300 border border-slate-600 text-xs px-2 py-1 rounded">Cross-Platform</span>
-                    </div>
-                    <a href="https://play.google.com/store/apps/details?id=com.baoui.android" target="_blank" class="text-sky-400 text-sm font-bold hover:text-sky-300 inline-flex items-center"><i class="fab fa-google-play mr-2"></i> View on Play Store &rarr;</a>
-                </div>
-            </div>
-
-            <!-- Project 3 -->
-            <div class="glass rounded-2xl overflow-hidden hover:border-sky-500 transition-all duration-300 hover:-translate-y-2 group flex flex-col">
-                <div class="h-64 bg-slate-800 overflow-hidden relative">
-                    <!-- ADD YOUR MILESCITY IMAGE HERE -->
-                    <img src="milescity.png" alt="MilesCity Maps UI" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
-                </div>
-                <div class="p-6 flex-grow flex flex-col">
-                    <h4 class="text-2xl font-bold mb-2">MilesCity Maps <span class="text-sm font-normal text-slate-400 ml-2">Navigation App</span></h4>
-                    <p class="text-slate-400 text-sm mb-4 flex-grow">Community navigation app featuring dynamic markers, favorites, events calendar, and highly optimized, low-power location services.</p>
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="bg-slate-800 text-slate-300 border border-slate-600 text-xs px-2 py-1 rounded">Google Maps SDK</span>
-                        <span class="bg-slate-800 text-slate-300 border border-slate-600 text-xs px-2 py-1 rounded">Location Services</span>
-                    </div>
-                    <a href="https://play.google.com/store/apps/details?id=com.project.milescity" target="_blank" class="text-sky-400 text-sm font-bold hover:text-sky-300 inline-flex items-center"><i class="fab fa-google-play mr-2"></i> View on Play Store &rarr;</a>
-                </div>
-            </div>
-
-            <!-- Project 4 -->
-            <div class="glass rounded-2xl overflow-hidden hover:border-sky-500 transition-all duration-300 hover:-translate-y-2 group flex flex-col">
-                <div class="h-64 bg-slate-800 overflow-hidden relative">
-                    <!-- ADD YOUR A-BOARD POS IMAGE HERE -->
-                    <img src="aboard.png" alt="A-Board POS UI" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
-                </div>
-                <div class="p-6 flex-grow flex flex-col">
-                    <h4 class="text-2xl font-bold mb-2">A-Board POS <span class="text-sm font-normal text-slate-400 ml-2">Point of Sale System</span></h4>
-                    <p class="text-slate-400 text-sm mb-4 flex-grow">A sophisticated Point of Sale terminal application designed for tablets, handling complex local networking, hardware integration, and fast checkout flows.</p>
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="bg-slate-800 text-slate-300 border border-slate-600 text-xs px-2 py-1 rounded">Hardware Integration</span>
-                        <span class="bg-slate-800 text-slate-300 border border-slate-600 text-xs px-2 py-1 rounded">Tablet UI</span>
-                    </div>
-                    <a href="https://play.google.com/store/apps/details?id=com.posapp15" target="_blank" class="text-sky-400 text-sm font-bold hover:text-sky-300 inline-flex items-center"><i class="fab fa-google-play mr-2"></i> View on Play Store &rarr;</a>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- Text-Only Notable Mentions -->
-        <div class="mt-8 glass p-6 rounded-2xl">
-            <h4 class="text-lg font-bold mb-4 border-b border-slate-700 pb-2">Other Notable Projects</h4>
-            <div class="grid md:grid-cols-2 gap-4">
-                <div>
-                    <h5 class="font-bold text-sky-400">MRC-UI (Warehouse Robot Control)</h5>
-                    <p class="text-sm text-slate-400 mt-1">Jetpack Compose app to manage J1600 HMI robots. Features dynamic mapping, scanner integration, and supports 45+ languages (LTR & RTL).</p>
-                </div>
-                <div>
-                    <h5 class="font-bold text-sky-400">FFL Orchid & GorillaTrades</h5>
-                    <p class="text-sm text-slate-400 mt-1">Engineered secure, offline-first architectures using Clean Architecture, Room DB, and Kotlin Flow for law enforcement and financial sectors.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Experience Section -->
-    <section id="experience" class="px-6 max-w-6xl mx-auto mb-24">
-        <div class="flex items-center gap-4 mb-10">
-            <h3 class="text-3xl font-bold">Professional Experience</h3>
-            <div class="h-px bg-slate-700 flex-grow"></div>
-        </div>
-        
-        <div class="space-y-12">
-            <!-- Job 1 -->
-            <div class="relative pl-8 md:pl-0">
-                <div class="md:grid md:grid-cols-4 md:gap-8 relative">
-                    <!-- Timeline Line for Mobile -->
-                    <div class="md:hidden absolute left-0 top-2 bottom-0 w-0.5 bg-sky-500/30"></div>
-                    <div class="md:hidden absolute left-[-4px] top-2 w-2.5 h-2.5 rounded-full bg-sky-500 shadow-[0_0_10px_#38bdf8]"></div>
-
-                    <div class="md:col-span-1 mb-4 md:mb-0 md:text-right">
-                        <p class="accent-text font-bold tracking-wide">May 2024 - Present</p>
-                        <p class="text-slate-400 text-sm">Chandigarh, India</p>
-                    </div>
-                    <div class="md:col-span-3 glass p-6 rounded-2xl relative border-l-4 border-l-sky-500 md:border-l-[1px] md:border-l-white/10">
-                        <h4 class="text-2xl font-bold">Senior Android Developer</h4>
-                        <p class="text-lg text-slate-300 mb-4 font-medium">I-Next Web Technologies Pvt. Ltd.</p>
-                        <ul class="space-y-3 text-slate-400 text-sm">
-                            <li class="flex items-start"><i class="fas fa-check-circle text-sky-500 mt-1 mr-3"></i> <span>Lead a cross-platform mobile team (Android & iOS), defining architectural standards and managing delivery timelines.</span></li>
-                            <li class="flex items-start"><i class="fas fa-check-circle text-sky-500 mt-1 mr-3"></i> <span>Architected a low-latency VoIP calling system using Plivo SDK, handling hundreds of concurrent calls.</span></li>
-                            <li class="flex items-start"><i class="fas fa-check-circle text-sky-500 mt-1 mr-3"></i> <span>Developed a real-time chat platform (WebSockets & Firebase) with offline caching and typing indicators.</span></li>
-                            <li class="flex items-start"><i class="fas fa-check-circle text-sky-500 mt-1 mr-3"></i> <span>Refactored legacy modules to Hilt-based modular architecture, improving app scalability by 40%.</span></li>
-                            <li class="flex items-start"><i class="fas fa-check-circle text-sky-500 mt-1 mr-3"></i> <span>Designed secure media handling systems optimizing network usage and storage efficiency.</span></li>
-                        </ul>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between text-sm mb-1"><span class="text-dark-200">Kotlin</span><span class="text-accent">95%</span></div>
+                            <div class="h-2 bg-dark-700 rounded-full overflow-hidden"><div class="skill-fill h-full bg-gradient-to-r from-accent to-purple-accent rounded-full" style="--fill:95%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1"><span class="text-dark-200">Java</span><span class="text-accent">85%</span></div>
+                            <div class="h-2 bg-dark-700 rounded-full overflow-hidden"><div class="skill-fill h-full bg-gradient-to-r from-accent to-purple-accent rounded-full" style="--fill:85%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1"><span class="text-dark-200">SQL</span><span class="text-accent">80%</span></div>
+                            <div class="h-2 bg-dark-700 rounded-full overflow-hidden"><div class="skill-fill h-full bg-gradient-to-r from-accent to-purple-accent rounded-full" style="--fill:80%"></div></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Job 2 -->
-            <div class="relative pl-8 md:pl-0">
-                <div class="md:grid md:grid-cols-4 md:gap-8 relative">
-                    <!-- Timeline Line for Mobile -->
-                    <div class="md:hidden absolute left-0 top-2 bottom-0 w-0.5 bg-slate-700"></div>
-                    <div class="md:hidden absolute left-[-4px] top-2 w-2.5 h-2.5 rounded-full bg-slate-500"></div>
-
-                    <div class="md:col-span-1 mb-4 md:mb-0 md:text-right">
-                        <p class="text-slate-300 font-bold tracking-wide">May 2022 - April 2024</p>
-                        <p class="text-slate-400 text-sm">Zirakpur, India</p>
+                
+                <!-- UI Development -->
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-10 h-10 rounded-lg bg-purple-accent/10 flex items-center justify-center">
+                            <i class="fas fa-paint-brush text-purple-accent"></i>
+                        </div>
+                        <h4 class="font-bold">UI Development</h4>
                     </div>
-                    <div class="md:col-span-3 glass p-6 rounded-2xl border-l-4 border-l-slate-600 md:border-l-[1px] md:border-l-white/10">
-                        <h4 class="text-2xl font-bold">Android Developer</h4>
-                        <p class="text-lg text-slate-300 mb-4 font-medium">OMVA Data Solutions Pvt. Ltd.</p>
-                        <ul class="space-y-3 text-slate-400 text-sm">
-                            <li class="flex items-start"><i class="fas fa-arrow-right text-slate-500 mt-1 mr-3"></i> <span>Developed and deployed 3+ commercial apps contributing to a combined 100,000+ downloads.</span></li>
-                            <li class="flex items-start"><i class="fas fa-arrow-right text-slate-500 mt-1 mr-3"></i> <span>Spearheaded UI migration from XML to Jetpack Compose, reducing boilerplate by 25% and accelerating dev speed.</span></li>
-                            <li class="flex items-start"><i class="fas fa-arrow-right text-slate-500 mt-1 mr-3"></i> <span>Integrated multi-payment gateways (UPI, QR, Cards) increasing transaction success rates by 15%.</span></li>
-                            <li class="flex items-start"><i class="fas fa-arrow-right text-slate-500 mt-1 mr-3"></i> <span>Built real-time order tracking using WebSockets and Firebase.</span></li>
-                            <li class="flex items-start"><i class="fas fa-arrow-right text-slate-500 mt-1 mr-3"></i> <span>Implemented robust MVVM + Coroutines/LiveData architecture, resulting in a 99.8% crash-free rate.</span></li>
-                        </ul>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tag">Jetpack Compose</span>
+                        <span class="tag">XML Layouts</span>
+                        <span class="tag">Material Design 3</span>
+                        <span class="tag">Custom Views</span>
+                        <span class="tag">Animations</span>
+                        <span class="tag">Responsive UI</span>
+                        <span class="tag">LTR/RTL Support</span>
+                    </div>
+                </div>
+                
+                <!-- Architecture -->
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-10 h-10 rounded-lg bg-green-accent/10 flex items-center justify-center">
+                            <i class="fas fa-sitemap text-green-accent"></i>
+                        </div>
+                        <h4 class="font-bold">Architecture</h4>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tag">MVVM</span>
+                        <span class="tag">MVI</span>
+                        <span class="tag">Clean Architecture</span>
+                        <span class="tag">Modular Architecture</span>
+                        <span class="tag">SOLID Principles</span>
+                        <span class="tag">Repository Pattern</span>
+                    </div>
+                </div>
+                
+                <!-- Core Android -->
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-10 h-10 rounded-lg bg-orange-accent/10 flex items-center justify-center">
+                            <i class="fab fa-android text-orange-accent"></i>
+                        </div>
+                        <h4 class="font-bold">Core Android & Jetpack</h4>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tag">Android SDK (API 21–35)</span>
+                        <span class="tag">Room</span>
+                        <span class="tag">ViewModel</span>
+                        <span class="tag">LiveData</span>
+                        <span class="tag">Navigation</span>
+                        <span class="tag">Hilt / Dagger</span>
+                        <span class="tag">WorkManager</span>
+                        <span class="tag">Services</span>
+                    </div>
+                </div>
+                
+                <!-- Networking & Data -->
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
+                            <i class="fas fa-network-wired text-accent"></i>
+                        </div>
+                        <h4 class="font-bold">Networking & Data</h4>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tag">Retrofit</span>
+                        <span class="tag">OkHttp</span>
+                        <span class="tag">REST APIs</span>
+                        <span class="tag">WebSockets</span>
+                        <span class="tag">Socket.IO</span>
+                        <span class="tag">GSON</span>
+                        <span class="tag">Room / SQLite</span>
+                        <span class="tag">Coroutines & Flow</span>
+                        <span class="tag">RxJava</span>
+                    </div>
+                </div>
+                
+                <!-- Tools & Libraries -->
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-10 h-10 rounded-lg bg-purple-accent/10 flex items-center justify-center">
+                            <i class="fas fa-tools text-purple-accent"></i>
+                        </div>
+                        <h4 class="font-bold">Tools & Integrations</h4>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tag">Firebase</span>
+                        <span class="tag">Google Maps SDK</span>
+                        <span class="tag">Plivo SDK (VoIP)</span>
+                        <span class="tag">ExoPlayer</span>
+                        <span class="tag">Git / Bitbucket</span>
+                        <span class="tag">Gradle</span>
+                        <span class="tag">GitHub Actions</span>
+                        <span class="tag">Bitrise CI/CD</span>
+                        <span class="tag">JIRA / Asana</span>
+                        <span class="tag">Postman</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Education Section -->
-    <section class="px-6 max-w-6xl mx-auto mb-20 text-center">
-        <h3 class="text-2xl font-bold mb-6">Education & Certifications</h3>
-        <div class="inline-block glass px-8 py-6 rounded-2xl text-left">
-            <h4 class="text-xl font-bold text-sky-400">Bachelor of Engineering in Computer Science</h4>
-            <p class="text-white mb-2">Chandigarh University | 2016 – 2020</p>
-            <p class="text-sm text-slate-400 mb-4">Coursework: Data Structures, Algorithms, OS, DBMS, Computer Networks</p>
-            <div class="flex flex-wrap gap-3">
-                <span class="bg-slate-800 text-xs px-3 py-1 rounded border border-slate-700">Java Certification (NIIT)</span>
-                <span class="bg-slate-800 text-xs px-3 py-1 rounded border border-slate-700">ITIL v4 Foundation</span>
-                <span class="bg-slate-800 text-xs px-3 py-1 rounded border border-slate-700">NCC B & C Certificate</span>
+    <!-- ===== PROJECTS SECTION ===== -->
+    <section id="projects" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 fade-up">
+                <span class="text-accent font-mono text-sm font-semibold tracking-wider">// PORTFOLIO</span>
+                <h2 class="text-3xl md:text-4xl font-bold mt-3">Featured <span class="gradient-text">Projects</span></h2>
+                <p class="text-dark-400 mt-3 max-w-2xl mx-auto">A selection of commercial apps I've designed, developed, and shipped to production.</p>
+            </div>
+
+            <div class="space-y-12">
+
+                <!-- Project 1: HappyTask -->
+                <div class="glass-card rounded-3xl overflow-hidden fade-up">
+                    <div class="p-8 md:p-10">
+                        <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
+                            <div>
+                                <div class="flex items-center gap-3 mb-2">
+                                    <span class="w-3 h-3 rounded-full bg-orange-accent"></span>
+                                    <span class="text-dark-400 text-sm font-mono">Featured Project</span>
+                                </div>
+                                <h3 class="text-2xl md:text-3xl font-bold">HappyTask</h3>
+                                <p class="text-accent text-sm font-semibold mt-1">Service Management Platform</p>
+                            </div>
+                            <a href="https://play.google.com/store/apps/details?id=com.ht.happytask" target="_blank" class="btn-primary text-sm !py-2.5">
+                                <i class="fab fa-google-play"></i> Play Store
+                            </a>
+                        </div>
+                        <p class="text-dark-300 max-w-3xl mb-4 leading-relaxed">
+                            Architected a multi-role service management app (provider, client, team) featuring calendar scheduling, 
+                            live tracking, real-time chat via WebSockets, ratings & reviews system, and booking management. 
+                            Built with MVVM architecture ensuring clean separation of concerns and scalability.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="tag">MVVM</span>
+                            <span class="tag">WebSockets</span>
+                            <span class="tag">Live Tracking</span>
+                            <span class="tag">Calendar</span>
+                            <span class="tag">Multi-Role</span>
+                            <span class="tag">Ratings</span>
+                            <span class="tag">Kotlin</span>
+                        </div>
+                        <!-- Screenshots -->
+                        <div class="project-screenshots">
+                            <!-- Replace src with your actual screenshot paths -->
+                            <img src="https://play-lh.googleusercontent.com/happytask-1" alt="HappyTask - Compare & Hire" onerror="this.style.background='linear-gradient(135deg,#f97316,#fb923c)';this.style.minWidth='180px';this.alt='Compare & Hire'">
+                            <img src="https://play-lh.googleusercontent.com/happytask-2" alt="HappyTask - Book Instantly" onerror="this.style.background='linear-gradient(135deg,#f97316,#fb923c)';this.style.minWidth='180px'">
+                            <img src="https://play-lh.googleusercontent.com/happytask-3" alt="HappyTask - Ratings" onerror="this.style.background='linear-gradient(135deg,#f97316,#fb923c)';this.style.minWidth='180px'">
+                            <img src="https://play-lh.googleusercontent.com/happytask-4" alt="HappyTask - Profile" onerror="this.style.background='linear-gradient(135deg,#1e40af,#3b82f6)';this.style.minWidth='180px'">
+                            <img src="https://play-lh.googleusercontent.com/happytask-5" alt="HappyTask - Services" onerror="this.style.background='linear-gradient(135deg,#1e40af,#3b82f6)';this.style.minWidth='180px'">
+                            <img src="https://play-lh.googleusercontent.com/happytask-6" alt="HappyTask - Schedule" onerror="this.style.background='linear-gradient(135deg,#1e40af,#3b82f6)';this.style.minWidth='180px'">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: Baoui -->
+                <div class="glass-card rounded-3xl overflow-hidden fade-up">
+                    <div class="p-8 md:p-10">
+                        <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
+                            <div>
+                                <div class="flex items-center gap-3 mb-2">
+                                    <span class="w-3 h-3 rounded-full bg-purple-accent"></span>
+                                    <span class="text-dark-400 text-sm font-mono">KMP Project</span>
+                                </div>
+                                <h3 class="text-2xl md:text-3xl font-bold">Baoui</h3>
+                                <p class="text-accent text-sm font-semibold mt-1">Cross-Platform Language Learning App</p>
+                            </div>
+                            <a href="https://play.google.com/store/apps/details?id=com.baoui.android" target="_blank" class="btn-primary text-sm !py-2.5">
+                                <i class="fab fa-google-play"></i> Play Store
+                            </a>
+                        </div>
+                        <p class="text-dark-300 max-w-3xl mb-4 leading-relaxed">
+                            Built a comprehensive language learning app using Kotlin Multiplatform (KMP) to share 70% of business logic 
+                            (user progress, subscriptions, data layer) between Android and iOS. Features 30+ languages, topic-based vocabulary, 
+                            interactive exercises, dialogues, and audio content covering 50+ topics.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="tag">Kotlin Multiplatform</span>
+                            <span class="tag">Jetpack Compose</span>
+                            <span class="tag">30+ Languages</span>
+                            <span class="tag">Audio Content</span>
+                            <span class="tag">Exercises</span>
+                            <span class="tag">Cross-Platform</span>
+                        </div>
+                        <div class="project-screenshots">
+                            <img src="https://play-lh.googleusercontent.com/baoui-1" alt="Baoui - Language Selection" onerror="this.style.background='linear-gradient(135deg,#7c3aed,#a78bfa)';this.style.minWidth='180px'">
+                            <img src="https://play-lh.googleusercontent.com/baoui-2" alt="Baoui - Practice Topics" onerror="this.style.background='linear-gradient(135deg,#2563eb,#60a5fa)';this.style.minWidth='180px'">
+                            <img src="https://play-lh.googleusercontent.com/baoui-3" alt="Baoui - Vocabulary" onerror="this.style.background='linear-gradient(135deg,#7c3aed,#f472b6)';this.style.minWidth='180px'">
+                            <img src="https://play-lh.googleusercontent.com/baoui-4" alt="Baoui - Exercises" onerror="this.style.background='linear-gradient(135deg,#2563eb,#7dd3fc)';this.style.minWidth='180px'">
+                            <img src="https://play-lh.googleusercontent.com/baoui-5" alt="Baoui - Dialogue" onerror="this.style.background='linear-gradient(135deg,#ec4899,#f472b6)';this.style.minWidth='180px'">
+                            <img src="https://play-lh.googleusercontent.com/baoui-6" alt="Baoui - Match Exercise" onerror="this.style.background='linear-gradient(135deg,#7c3aed,#a78bfa)';this.style.minWidth='180px'">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: MRC-UI (Robot Control) -->
+                <div class="glass-card rounded-3xl overflow-hidden fade-up">
+                    <div class="p-8 md:p-10">
+                        <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
+                            <div>
+                                <div class="flex items-center gap-3 mb-2">
+                                    <span class="w-3 h-3 rounded-full bg-green-accent"></span>
+                                    <span class="text-dark-400 text-sm font-mono">Enterprise / IoT</span>
+                                </div>
+                                <h3 class="text-2xl md:text-3xl font-bold">MRC-UI</h3>
+                                <p class="text-accent text-sm font-semibold mt-1">Warehouse Robot Control System</p>
+                            </div>
+                            <span class="btn-outline text-sm !py-2.5 cursor-default opacity-70">
+                                <i class="fas fa-lock"></i> Enterprise
+                            </span>
+                        </div>
+                        <p class="text-dark-300 max-w-3xl mb-4 leading-relaxed">
+                            Jetpack Compose–based application designed to control and manage the J1600 HMI robot within a warehouse 
+                            environment. Features task creation, dynamic warehouse maps, robot movement control, scanner integration, 
+                            and configuration options including Wi-Fi and web interface. Supports <strong class="text-white">45+ languages</strong> 
+                            with both LTR and RTL layouts for global usability.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tag">Jetpack Compose</span>
+                            <span class="tag">HMI Robot</span>
+                            <span class="tag">45+ Languages</span>
+                            <span class="tag">RTL/LTR</span>
+                            <span class="tag">Scanner Integration</span>
+                            <span class="tag">Warehouse Maps</span>
+                            <span class="tag">IoT</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projects Grid: Remaining projects -->
+                <div class="grid md:grid-cols-2 gap-8">
+                    
+                    <!-- FFL Orchid -->
+                    <div class="glass-card rounded-2xl p-6 fade-up">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="w-3 h-3 rounded-full bg-red-500"></span>
+                            <span class="text-dark-400 text-xs font-mono">Security / Gov</span>
+                        </div>
+                        <h4 class="text-xl font-bold mb-1">FFL Orchid</h4>
+                        <p class="text-accent text-sm font-semibold mb-3">Firearm Registration System</p>
+                        <p class="text-dark-400 text-sm mb-4 leading-relaxed">
+                            Engineered a secure system for law enforcement using Clean Architecture, Hilt, and Room database 
+                            with robust offline-first synchronization capabilities.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tag">Clean Architecture</span>
+                            <span class="tag">Hilt</span>
+                            <span class="tag">Room</span>
+                            <span class="tag">Offline-First</span>
+                        </div>
+                        <a href="https://play.google.com/store/apps/details?id=com.project.florchid" target="_blank" class="text-accent text-sm font-bold hover:text-accent-light transition inline-flex items-center gap-1">
+                            <i class="fab fa-google-play"></i> View on Play Store <i class="fas fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+
+                    <!-- GorillaTrades -->
+                    <div class="glass-card rounded-2xl p-6 fade-up">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="w-3 h-3 rounded-full bg-green-accent"></span>
+                            <span class="text-dark-400 text-xs font-mono">FinTech</span>
+                        </div>
+                        <h4 class="text-xl font-bold mb-1">GorillaTrades</h4>
+                        <p class="text-accent text-sm font-semibold mb-3">Financial & Stock Insights</p>
+                        <p class="text-dark-400 text-sm mb-4 leading-relaxed">
+                            Developed real-time market data modules with chart visualizations, implementing a secure, 
+                            offline-first architecture using JWT, Retrofit, and Kotlin Coroutine Flows.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tag">Charts</span>
+                            <span class="tag">JWT Auth</span>
+                            <span class="tag">Coroutine Flows</span>
+                            <span class="tag">Offline-First</span>
+                        </div>
+                        <a href="https://play.google.com/store/apps/details?id=com.gorillatrades" target="_blank" class="text-accent text-sm font-bold hover:text-accent-light transition inline-flex items-center gap-1">
+                            <i class="fab fa-google-play"></i> View on Play Store <i class="fas fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+
+                    <!-- MilesCity Maps -->
+                    <div class="glass-card rounded-2xl p-6 fade-up">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="w-3 h-3 rounded-full bg-blue-500"></span>
+                            <span class="text-dark-400 text-xs font-mono">Maps / Community</span>
+                        </div>
+                        <h4 class="text-xl font-bold mb-1">MilesCity Maps</h4>
+                        <p class="text-accent text-sm font-semibold mb-3">Community Navigation App</p>
+                        <p class="text-dark-400 text-sm mb-4 leading-relaxed">
+                            Built a community navigation app with category/subcategory markers, favorites, notifications, 
+                            and events calendar, optimizing location services for accuracy and low power consumption.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tag">Google Maps SDK</span>
+                            <span class="tag">Categories</span>
+                            <span class="tag">Events</span>
+                            <span class="tag">Low Power GPS</span>
+                        </div>
+                        <a href="https://play.google.com/store/apps/details?id=com.project.milescity" target="_blank" class="text-accent text-sm font-bold hover:text-accent-light transition inline-flex items-center gap-1">
+                            <i class="fab fa-google-play"></i> View on Play Store <i class="fas fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+
+                    <!-- A-Board POS -->
+                    <div class="glass-card rounded-2xl p-6 fade-up">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+                            <span class="text-dark-400 text-xs font-mono">POS / Retail</span>
+                        </div>
+                        <h4 class="text-xl font-bold mb-1">A-Board POS</h4>
+                        <p class="text-accent text-sm font-semibold mb-3">Point of Sale System</p>
+                        <p class="text-dark-400 text-sm mb-4 leading-relaxed">
+                            Developed a comprehensive POS application for restaurant and retail environments with order management, 
+                            payment processing, roster management, and reporting capabilities on tablet devices.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tag">Tablet UI</span>
+                            <span class="tag">POS Hardware</span>
+                            <span class="tag">Order Management</span>
+                            <span class="tag">Reports</span>
+                        </div>
+                        <a href="https://play.google.com/store/apps/details?id=com.posapp15" target="_blank" class="text-accent text-sm font-bold hover:text-accent-light transition inline-flex items-center gap-1">
+                            <i class="fab fa-google-play"></i> View on Play Store <i class="fas fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+
+                    <!-- EzyGo Food Delivery -->
+                    <div class="glass-card rounded-2xl p-6 fade-up">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="w-3 h-3 rounded-full bg-orange-accent"></span>
+                            <span class="text-dark-400 text-xs font-mono">Food Delivery</span>
+                        </div>
+                        <h4 class="text-xl font-bold mb-1">EzyGo</h4>
+                        <p class="text-accent text-sm font-semibold mb-3">Food Delivery Platform (User + Driver)</p>
+                        <p class="text-dark-400 text-sm mb-4 leading-relaxed">
+                            Built a complete food delivery ecosystem with separate User and Driver apps, featuring real-time order 
+                            tracking, multi-payment gateway (UPI, QR, Gift Cards), and live location updates via WebSockets.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tag">Multi-App</span>
+                            <span class="tag">Real-time Tracking</span>
+                            <span class="tag">Payments</span>
+                            <span class="tag">Firebase</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="https://play.google.com/store/apps/details?id=com.omvadata.treedriveuser" target="_blank" class="text-accent text-sm font-bold hover:text-accent-light transition inline-flex items-center gap-1">
+                                <i class="fab fa-google-play"></i> User App <i class="fas fa-arrow-right text-xs"></i>
+                            </a>
+                            <a href="https://play.google.com/store/apps/details?id=com.omdata.driver" target="_blank" class="text-accent text-sm font-bold hover:text-accent-light transition inline-flex items-center gap-1">
+                                <i class="fab fa-google-play"></i> Driver App <i class="fas fa-arrow-right text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- More projects CTA -->
+                    <div class="glass-card rounded-2xl p-6 flex flex-col items-center justify-center text-center fade-up border-dashed !border-dark-500 hover:!border-accent/40">
+                        <div class="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center mb-4">
+                            <i class="fas fa-plus text-2xl text-accent"></i>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">Want to see more?</h4>
+                        <p class="text-dark-400 text-sm mb-4">I've shipped 10+ apps across multiple industries</p>
+                        <a href="mailto:anshul8298@gmail.com" class="btn-outline text-sm !py-2">
+                            <i class="fas fa-envelope"></i> Request Full Portfolio
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Call to Action / Footer -->
-    <footer class="border-t border-slate-800 bg-slate-900/50 pt-16 pb-8 text-center relative overflow-hidden">
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-sky-500 to-transparent"></div>
-        <h2 class="text-3xl font-bold mb-6">Ready to build something amazing?</h2>
-        <a href="mailto:anshul8298@gmail.com" class="btn-primary inline-block px-8 py-4 rounded-xl font-bold text-lg mb-12 shadow-[0_0_20px_rgba(56,189,248,0.3)]">
-            <i class="fas fa-paper-plane mr-2"></i> anshul8298@gmail.com
-        </a>
-        <div class="flex justify-center space-x-6 mb-8">
-            <a href="https://www.linkedin.com/in/anshul-chaudhary-51529a1bb/" target="_blank" class="text-2xl text-slate-500 hover:text-sky-400 transition-colors"><i class="fab fa-linkedin"></i></a>
-            <a href="#" class="text-2xl text-slate-500 hover:text-sky-400 transition-colors"><i class="fab fa-github"></i></a>
+    <!-- ===== EXPERIENCE SECTION ===== -->
+    <section id="experience" class="py-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 fade-up">
+                <span class="text-accent font-mono text-sm font-semibold tracking-wider">// CAREER</span>
+                <h2 class="text-3xl md:text-4xl font-bold mt-3">Professional <span class="gradient-text">Experience</span></h2>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="timeline-line pl-8 space-y-12">
+                    
+                    <!-- Experience 1 -->
+                    <div class="relative fade-up">
+                        <div class="absolute -left-8 top-1 w-4 h-4 rounded-full bg-accent border-4 border-dark-900 z-10 pulse-glow"></div>
+                        <div class="glass-card rounded-2xl p-6 md:p-8">
+                            <div class="flex flex-wrap items-start justify-between gap-3 mb-4">
+                                <div>
+                                    <h4 class="text-xl md:text-2xl font-bold">Android Developer</h4>
+                                    <p class="text-accent font-semibold">I-Next Web Technologies Pvt. Ltd.</p>
+                                    <p class="text-dark-400 text-sm flex items-center gap-2 mt-1">
+                                        <i class="fas fa-map-marker-alt"></i> Chandigarh
+                                    </p>
+                                </div>
+                                <span class="bg-accent/10 text-accent text-sm font-bold px-4 py-1.5 rounded-full border border-accent/20">
+                                    May 2024 – Present
+                                </span>
+                            </div>
+                            <ul class="space-y-3 text-dark-300 text-sm leading-relaxed">
+                                <li class="flex gap-3">
+                                    <i class="fas fa-chevron-right text-accent text-xs mt-1.5 flex-shrink-0"></i>
+                                    <span>Lead a cross-platform mobile team (Android & iOS), defining architectural standards, enforcing code quality, and managing delivery timelines for multiple concurrent projects.</span>
+                                </li>
+                                <li class="flex gap-3">
+                                    <i class="fas fa-chevron-right text-accent text-xs mt-1.5 flex-shrink-0"></i>
+                                    <span>Architected and implemented a <strong class="text-white">low-latency VoIP calling system</strong> using Plivo SDK, optimized to handle hundreds of concurrent calls with minimal delay.</span>
+                                </li>
+                                <li class="flex gap-3">
+                                    <i class="fas fa-chevron-right text-accent text-xs mt-1.5 flex-shrink-0"></i>
+                                    <span>Developed a <strong class="text-white">real-time chat platform</strong> using WebSockets and Firebase, ensuring reliable messaging, typing indicators, and offline message caching.</span>
+                                </li>
+                                <li class="flex gap-3">
+                                    <i class="fas fa-chevron-right text-accent text-xs mt-1.5 flex-shrink-0"></i>
+                                    <span>Refactored legacy modules into a <strong class="text-white">Hilt-based modular architecture</strong>, improving scalability by <strong class="text-accent">40%</strong>, reducing technical debt, and enhancing test coverage.</span>
+                                </li>
+                                <li class="flex gap-3">
+                                    <i class="fas fa-chevron-right text-accent text-xs mt-1.5 flex-shrink-0"></i>
+                                    <span>Mentored junior developers on best practices, conducted code reviews, and designed secure media handling and caching systems.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Experience 2 -->
+                    <div class="relative fade-up">
+                        <div class="absolute -left-8 top-1 w-4 h-4 rounded-full bg-purple-accent border-4 border-dark-900 z-10"></div>
+                        <div class="glass-card rounded-2xl p-6 md:p-8">
+                            <div class="flex flex-wrap items-start justify-between gap-3 mb-4">
+                                <div>
+                                    <h4 class="text-xl md:text-2xl font-bold">Junior Android Developer</h4>
+                                    <p class="text-purple-accent font-semibold">OMVA Data Solutions Pvt. Ltd.</p>
+                                    <p class="text-dark-400 text-sm flex items-center gap-2 mt-1">
+                                        <i class="fas fa-map-marker-alt"></i> Zirakpur
+                                    </p>
+                                </div>
+                                <span class="bg-purple-accent/10 text-purple-accent text-sm font-bold px-4 py-1.5 rounded-full border border-purple-accent/20">
+                                    May 2022 – April 2024
+                                </span>
+                            </div>
+                            <ul class="space-y-3 text-dark-300 text-sm leading-relaxed">
+                                <li class="flex gap-3">
+                                    <i class="fas fa-chevron-right text-purple-accent text-xs mt-1.5 flex-shrink-0"></i>
+                                    <span>Developed and deployed <strong class="text-white">3+ commercial Android applications</strong> to Google Play Store, contributing to a combined 100,000+ downloads.</span>
+                                </li>
+                                <li class="flex gap-3">
+                                    <i class="fas fa-chevron-right text-purple-accent text-xs mt-1.5 flex-shrink-0"></i>
+                                    <span>Spearheaded the <strong class="text-white">UI migration from XML to Jetpack Compose</strong>, reducing boilerplate code by <strong class="text-accent">25%</strong> and accelerating development speed.</span>
+                                </li>
+                                <li class="flex gap-3">
+                                    <i class="fas fa-chevron-right text-purple-accent text-xs mt-1.5 flex-shrink-0"></i>
+                                    <span>Integrated a <strong class="text-white">multi-payment gateway system</strong> (UPI, QR, Gift Cards) that increased transaction success rates by <strong class="text-accent">15%</strong>.</span>
+                                </li>
+                                <li class="flex gap-3">
+                                    <i class="fas fa-chevron-right text-purple-accent text-xs mt-1.5 flex-shrink-0"></i>
+                                    <span>Built a <strong class="text-white">real-time order tracking</strong> feature using WebSockets and Firebase, providing live updates and improving customer experience.</span>
+                                </li>
+                                <li class="flex gap-3">
+                                    <i class="fas fa-chevron-right text-purple-accent text-xs mt-1.5 flex-shrink-0"></i>
+                                    <span>Implemented robust MVVM architecture with Kotlin Coroutines and LiveData, resulting in a <strong class="text-accent">99.8% crash-free</strong> user rate.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <p class="text-slate-500 text-sm">© 2024 Anshul Chaudhary. Built with Passion & Kotlin Logic.</p>
+    </section>
+
+    <!-- ===== EDUCATION & CERTIFICATIONS ===== -->
+    <section class="py-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Education -->
+                <div class="fade-up">
+                    <span class="text-accent font-mono text-sm font-semibold tracking-wider">// EDUCATION</span>
+                    <h3 class="text-2xl md:text-3xl font-bold mt-3 mb-8">Academic <span class="gradient-text">Background</span></h3>
+                    <div class="glass-card rounded-2xl p-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-graduation-cap text-xl text-accent"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold">Bachelor of Engineering</h4>
+                                <p class="text-accent font-semibold text-sm">Computer Science</p>
+                                <p class="text-dark-300 text-sm mt-1">Chandigarh University, Gharuan, Punjab</p>
+                                <p class="text-dark-400 text-sm">2016 – 2020</p>
+                                <div class="mt-4">
+                                    <p class="text-dark-400 text-xs font-semibold uppercase tracking-wider mb-2">Relevant Coursework</p>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="tag !text-[10px]">Data Structures</span>
+                                        <span class="tag !text-[10px]">Algorithms</span>
+                                        <span class="tag !text-[10px]">Operating Systems</span>
+                                        <span class="tag !text-[10px]">DBMS</span>
+                                        <span class="tag !text-[10px]">Computer Networks</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certifications -->
+                <div class="fade-up">
+                    <span class="text-accent font-mono text-sm font-semibold tracking-wider">// CERTIFICATIONS</span>
+                    <h3 class="text-2xl md:text-3xl font-bold mt-3 mb-8">Professional <span class="gradient-text">Credentials</span></h3>
+                    <div class="space-y-4">
+                        <div class="glass-card rounded-2xl p-5 flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-orange-accent/10 flex items-center justify-center flex-shrink-0">
+                                <i class="fab fa-java text-xl text-orange-accent"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm">Java Programming Certification</h4>
+                                <p class="text-dark-400 text-xs">NIIT Shimla • 2019</p>
+                            </div>
+                        </div>
+                        <div class="glass-card rounded-2xl p-5 flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-purple-accent/10 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-certificate text-xl text-purple-accent"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm">ITIL v4 Foundation Certified</h4>
+                                <p class="text-dark-400 text-xs">2021</p>
+                            </div>
+                        </div>
+                        <div class="glass-card rounded-2xl p-5 flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-green-accent/10 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-shield-alt text-xl text-green-accent"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm">NCC B & C Certificate Holder</h4>
+                                <p class="text-dark-400 text-xs">2019 – 2020</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== WHAT I OFFER ===== -->
+    <section class="py-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 fade-up">
+                <span class="text-accent font-mono text-sm font-semibold tracking-wider">// SERVICES</span>
+                <h2 class="text-3xl md:text-4xl font-bold mt-3">What I Can <span class="gradient-text">Build For You</span></h2>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger fade-up">
+                <div class="glass-card rounded-2xl p-8 text-center group">
+                    <div class="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center mx-auto mb-5 group-hover:bg-accent/20 transition">
+                        <i class="fab fa-android text-3xl text-accent"></i>
+                    </div>
+                    <h4 class="font-bold text-lg mb-2">Native Android Apps</h4>
+                    <p class="text-dark-400 text-sm leading-relaxed">End-to-end Android development using Kotlin, Jetpack Compose, and modern architecture patterns.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-8 text-center group">
+                    <div class="w-16 h-16 rounded-2xl bg-purple-accent/10 flex items-center justify-center mx-auto mb-5 group-hover:bg-purple-accent/20 transition">
+                        <i class="fas fa-mobile-alt text-3xl text-purple-accent"></i>
+                    </div>
+                    <h4 class="font-bold text-lg mb-2">Cross-Platform (KMP)</h4>
+                    <p class="text-dark-400 text-sm leading-relaxed">Share business logic between Android & iOS using Kotlin Multiplatform, reducing development time by 70%.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-8 text-center group">
+                    <div class="w-16 h-16 rounded-2xl bg-green-accent/10 flex items-center justify-center mx-auto mb-5 group-hover:bg-green-accent/20 transition">
+                        <i class="fas fa-comments text-3xl text-green-accent"></i>
+                    </div>
+                    <h4 class="font-bold text-lg mb-2">Real-Time Features</h4>
+                    <p class="text-dark-400 text-sm leading-relaxed">Chat systems, live tracking, VoIP calling, and real-time data sync using WebSockets & Firebase.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-8 text-center group">
+                    <div class="w-16 h-16 rounded-2xl bg-orange-accent/10 flex items-center justify-center mx-auto mb-5 group-hover:bg-orange-accent/20 transition">
+                        <i class="fas fa-credit-card text-3xl text-orange-accent"></i>
+                    </div>
+                    <h4 class="font-bold text-lg mb-2">Payment Integration</h4>
+                    <p class="text-dark-400 text-sm leading-relaxed">Multi-gateway payment systems including UPI, QR codes, gift cards, and subscription billing.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-8 text-center group">
+                    <div class="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center mx-auto mb-5 group-hover:bg-accent/20 transition">
+                        <i class="fas fa-map-marked-alt text-3xl text-accent"></i>
+                    </div>
+                    <h4 class="font-bold text-lg mb-2">Maps & Location</h4>
+                    <p class="text-dark-400 text-sm leading-relaxed">Google Maps integration, geofencing, live tracking, and location-based services with battery optimization.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-8 text-center group">
+                    <div class="w-16 h-16 rounded-2xl bg-purple-accent/10 flex items-center justify-center mx-auto mb-5 group-hover:bg-purple-accent/20 transition">
+                        <i class="fas fa-cogs text-3xl text-purple-accent"></i>
+                    </div>
+                    <h4 class="font-bold text-lg mb-2">App Modernization</h4>
+                    <p class="text-dark-400 text-sm leading-relaxed">Migrate legacy apps to modern architecture, Jetpack Compose UI, and improve performance & stability.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TESTIMONIAL / TRUST SECTION ===== -->
+    <section class="py-24">
+        <div class="max-w-5xl mx-auto px-6 fade-up">
+            <div class="glass-card rounded-3xl p-8 md:p-12 text-center relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-br from-accent/5 to-purple-accent/5"></div>
+                <div class="relative z-10">
+                    <div class="flex justify-center gap-1 mb-6">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <blockquote class="text-xl md:text-2xl font-medium italic text-dark-100 mb-6 max-w-3xl mx-auto leading-relaxed">
+                        "I don't just write code — I architect solutions. Every app I build is designed for scalability, 
+                        performance, and an exceptional user experience. Let's turn your idea into a product users love."
+                    </blockquote>
+                    <div class="flex items-center justify-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-accent to-purple-accent flex items-center justify-center font-bold text-lg text-dark-900">
+                            A
+                        </div>
+                        <div class="text-left">
+                            <p class="font-bold">Anshul Chaudhary</p>
+                            <p class="text-dark-400 text-sm">Senior Android Developer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT SECTION ===== -->
+    <section id="contact" class="py-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="fade-up">
+                    <span class="text-accent font-mono text-sm font-semibold tracking-wider">// GET IN TOUCH</span>
+                    <h2 class="text-3xl md:text-4xl font-bold mt-3 mb-6">Let's Build Something <span class="gradient-text">Amazing Together</span></h2>
+                    <p class="text-dark-300 leading-relaxed mb-8">
+                        Whether you're looking for a Senior Android Developer to join your team, need a freelance expert for your project, 
+                        or want to discuss a collaboration — I'd love to hear from you. I'm available for full-time roles, 
+                        contract work, and freelance projects.
+                    </p>
+                    <div class="space-y-4 mb-8">
+                        <a href="mailto:anshul8298@gmail.com" class="flex items-center gap-4 text-dark-200 hover:text-accent transition group">
+                            <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center group-hover:border-accent/40 transition">
+                                <i class="fas fa-envelope text-accent"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-dark-400 font-semibold uppercase tracking-wider">Email</p>
+                                <p class="font-medium">anshul8298@gmail.com</p>
+                            </div>
+                        </a>
+                        <a href="tel:+918219253798" class="flex items-center gap-4 text-dark-200 hover:text-accent transition group">
+                            <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center group-hover:border-accent/40 transition">
+                                <i class="fas fa-phone text-accent"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-dark-400 font-semibold uppercase tracking-wider">Phone</p>
+                                <p class="font-medium">+91-8219253798</p>
+                            </div>
+                        </a>
+                        <a href="https://www.linkedin.com/in/anshul-chaudhary-51529a1bb/" target="_blank" class="flex items-center gap-4 text-dark-200 hover:text-accent transition group">
+                            <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center group-hover:border-accent/40 transition">
+                                <i class="fab fa-linkedin-in text-accent"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-dark-400 font-semibold uppercase tracking-wider">LinkedIn</p>
+                                <p class="font-medium">Anshul Chaudhary</p>
+                            </div>
+                        </a>
+                        <div class="flex items-center gap-4 text-dark-200">
+                            <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center">
+                                <i class="fas fa-map-marker-alt text-accent"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-dark-400 font-semibold uppercase tracking-wider">Location</p>
+                                <p class="font-medium">Shimla, Himachal Pradesh, India</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div class="fade-up">
+                    <form class="glass-card rounded-2xl p-8 space-y-5" action="https://formspree.io/f/your-form-id" method="POST">
+                        <div>
+                            <label class="block text-sm font-medium text-dark-200 mb-2">Your Name</label>
+                            <input type="text" name="name" required class="w-full bg-dark-800 border border-dark-600 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-accent transition" placeholder="John Doe">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-dark-200 mb-2">Email Address</label>
+                            <input type="email" name="email" required class="w-full bg-dark-800 border border-dark-600 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-accent transition" placeholder="john@company.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-dark-200 mb-2">Project Type</label>
+                            <select name="project_type" class="w-full bg-dark-800 border border-dark-600 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-accent transition">
+                                <option value="">Select project type</option>
+                                <option>New Android App</option>
+                                <option>Cross-Platform (KMP)</option>
+                                <option>App Modernization</option>
+                                <option>Full-Time Position</option>
+                                <option>Consulting</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-dark-200 mb-2">Message</label>
+                            <textarea name="message" rows="4" required class="w-full bg-dark-800 border border-dark-600 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-accent transition resize-none" placeholder="Tell me about your project..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary w-full justify-center text-sm">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                        <p class="text-dark-500 text-xs text-center">I'll get back to you within 24 hours.</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="border-t border-dark-700/50 py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-accent to-purple-accent flex items-center justify-center font-bold text-dark-900 text-lg">A</div>
+                    <div>
+                        <p class="font-bold">Anshul Chaudhary</p>
+                        <p class="text-dark-400 text-xs">Senior Android Developer</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a href="https://www.linkedin.com/in/anshul-chaudhary-51529a1bb/" target="_blank" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-dark-400 hover:text-accent hover:border-accent/40 transition">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://github.com/anshulchaudhary" target="_blank" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-dark-400 hover:text-accent hover:border-accent/40 transition">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="mailto:anshul8298@gmail.com" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-dark-400 hover:text-accent hover:border-accent/40 transition">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="tel:+918219253798" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-dark-400 hover:text-accent hover:border-accent/40 transition">
+                        <i class="fas fa-phone"></i>
+                    </a>
+                </div>
+                <p class="text-dark-500 text-sm">© 2025 Anshul Chaudhary. Built with passion & Kotlin logic.</p>
+            </div>
+        </div>
     </footer>
 
+    <!-- ===== SCRIPTS ===== -->
+    <script>
+        // ---- Navbar scroll effect ----
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('glass');
+                navbar.style.background = '';
+            } else {
+                navbar.classList.remove('glass');
+                navbar.style.background = 'transparent';
+            }
+        });
+
+        // ---- Mobile menu ----
+        const menuBtn = document.getElementById('menuBtn');
+        const closeMenuBtn = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        menuBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
+        closeMenuBtn.addEventListener('click', () => mobileMenu.classList.remove('open'));
+        mobileLinks.forEach(link => link.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+        // ---- Intersection Observer for animations ----
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Animate skill bars
+                    entry.target.querySelectorAll('.skill-fill').forEach(bar => {
+                        bar.classList.add('animate');
+                    });
+                    // Animate stagger children
+                    if (entry.target.classList.contains('stagger')) {
+                        entry.target.querySelectorAll('.glass-card').forEach(child => {
+                            child.classList.add('visible');
+                        });
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        // ---- Counter animation ----
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            counters.forEach(counter => {
+                const target = counter.getAttribute('data-target');
+                if (!target) return;
+                
+                let current = 0;
+                const increment = Math.ceil(target / 60);
+                const suffix = counter.textContent.replace(/[0-9]/g, '');
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    counter.textContent = current + suffix;
+                }, 30);
+            });
+        }
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsSection = document.querySelector('.stat-number');
+        if (statsSection) statsObserver.observe(statsSection.closest('section') || statsSection.closest('div'));
+
+        // ---- Active nav link on scroll ----
+        const sections = document.querySelectorAll('section[id]');
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY + 100;
+            sections.forEach(section => {
+                const top = section.offsetTop;
+                const height = section.offsetHeight;
+                const id = section.getAttribute('id');
+                const link = document.querySelector(`nav a[href="#${id}"]`);
+                if (link) {
+                    if (scrollY >= top && scrollY < top + height) {
+                        link.classList.add('active');
+                        link.style.color = '#38bdf8';
+                    } else {
+                        link.classList.remove('active');
+                        link.style.color = '';
+                    }
+                }
+            });
+        });
+
+        // ---- Smooth scroll for anchor links ----
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // ---- Typing effect for hero ----
+        const roles = ['Android Apps', 'KMP Solutions', 'Real-Time Systems', 'Beautiful UIs', 'Scalable Architecture'];
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typingSpeed = 80;
+        const deletingSpeed = 40;
+        const pauseTime = 2000;
+
+        // Optional: If you want the typing effect on a specific element, uncomment below
+        // function typeEffect() {
+        //     const el = document.getElementById('typed-text');
+        //     if (!el) return;
+        //     const currentRole = roles[roleIndex];
+        //     if (isDeleting) {
+        //         el.textContent = currentRole.substring(0, charIndex--);
+        //         if (charIndex < 0) { isDeleting = false; roleIndex = (roleIndex + 1) % roles.length; }
+        //         setTimeout(typeEffect, deletingSpeed);
+        //     } else {
+        //         el.textContent = currentRole.substring(0, charIndex++);
+        //         if (charIndex > currentRole.length) { isDeleting = true; setTimeout(typeEffect, pauseTime); return; }
+        //         setTimeout(typeEffect, typingSpeed);
+        //     }
+        // }
+        // typeEffect();
+
+        // ---- Parallax effect on hero ----
+        window.addEventListener('scroll', () => {
+            const hero = document.querySelector('.hero-bg');
+            if (hero) {
+                const scrolled = window.scrollY;
+                hero.style.transform = `translateY(${scrolled * 0.1}px)`;
+            }
+        });
+
+        // ---- Initial fade-in for first elements ----
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.fade-up').forEach((el, i) => {
+                if (el.getBoundingClientRect().top < window.innerHeight) {
+                    setTimeout(() => el.classList.add('visible'), i * 100);
+                }
+            });
+        });
+    </script>
 </body>
 </html>
