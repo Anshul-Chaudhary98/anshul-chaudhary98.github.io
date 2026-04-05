@@ -583,9 +583,12 @@
         .contact-text span { display: block; color: var(--text-muted); font-size: 0.85rem; }
         .contact-text a, .contact-text strong { color: var(--text-primary); text-decoration: none; font-size: 1rem; transition: color 0.3s ease; }
         .contact-text a:hover { color: var(--primary); }
+        
         .social-links { display: flex; gap: 1rem; margin-top: 2rem; }
-        .social-link { width: 50px; height: 50px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; text-decoration: none; transition: all 0.3s ease; }
-        .social-link:hover { background: var(--primary); border-color: var(--primary); transform: translateY(-5px); }
+        .social-link { width: 50px; height: 50px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--text-primary); text-decoration: none; transition: all 0.3s ease; }
+        .social-link svg { width: 22px; height: 22px; }
+        .social-link:hover { background: var(--primary); border-color: var(--primary); transform: translateY(-5px); color: white; }
+        
         .contact-form { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 20px; padding: 2.5rem; }
         .contact-form h3 { font-size: 1.5rem; margin-bottom: 1.5rem; }
         .form-group { margin-bottom: 1.5rem; }
@@ -1154,20 +1157,31 @@
                         </div>
                     </div>
                 </div>
+                
+                <!-- NEW SVG SOCIAL LINKS -->
                 <div class="social-links">
                     <a href="https://linkedin.com/in/anshul-chaudhary-51529a1bb" target="_blank" class="social-link" title="LinkedIn">
-                        💼
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                            <rect x="2" y="9" width="4" height="12"></rect>
+                            <circle cx="4" cy="4" r="2"></circle>
+                        </svg>
                     </a>
                     <a href="https://github.com/anshul-chaudhary98" target="_blank" class="social-link" title="GitHub">
-                        🐙
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                        </svg>
                     </a>
                     <a href="https://anshul-chaudhary98.github.io" target="_blank" class="social-link" title="Portfolio">
-                        🌐
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
                     </a>
                 </div>
             </div>
             
-            <!-- CONTACT FORM -->
             <div class="contact-form">
                 <h3>Send me a message</h3>
                 <form id="contactForm" onsubmit="handleSubmit(event)">
@@ -1216,7 +1230,6 @@
     </button>
 
     <script>
-        // Resume PDF String 
         const resumeHTML = `
 <!DOCTYPE html>
 <html lang="en">
@@ -1428,7 +1441,6 @@
 </html>
         `;
 
-        // Navigation scroll effect
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
             const scrollTop = document.getElementById('scrollTop');
@@ -1446,7 +1458,6 @@
             }
         });
 
-        // Mobile menu toggle
         function toggleMenu() {
             const navLinks = document.getElementById('navLinks');
             const menuToggle = document.getElementById('menuToggle');
@@ -1461,7 +1472,6 @@
             menuToggle.classList.remove('active');
         }
 
-        // Scroll to top
         function scrollToTop() {
             window.scrollTo({
                 top: 0,
@@ -1469,7 +1479,6 @@
             });
         }
 
-        // Resume functions
         function toggleResumePreview() {
             const wrapper = document.getElementById('resumeWrapper');
             const placeholder = document.getElementById('resumePlaceholder');
@@ -1509,7 +1518,6 @@
             };
         }
 
-        // --- NEW FUNCTIONAL CONTACT FORM SCRIPT ---
         function handleSubmit(event) {
             event.preventDefault();
             
@@ -1517,18 +1525,15 @@
             const submitBtn = form.querySelector('button[type="submit"]');
             const originalBtnHTML = submitBtn.innerHTML;
             
-            // Extract values
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const subject = document.getElementById('subject').value;
             const message = document.getElementById('message').value;
             
-            // Set Loading UI
             submitBtn.innerHTML = '<span>⏳</span> Sending...';
             submitBtn.style.opacity = '0.8';
             submitBtn.disabled = true;
 
-            // Using FormSubmit Free API
             fetch("https://formsubmit.co/ajax/anshul8298@gmail.com", {
                 method: "POST",
                 headers: { 
@@ -1545,35 +1550,31 @@
             .then(response => response.json())
             .then(data => {
                 if(data.success === "true" || data.success === true) {
-                    // Success UI
                     submitBtn.innerHTML = '<span>✅</span> Message Sent!';
-                    submitBtn.style.background = '#27C93F'; // Green color
+                    submitBtn.style.background = '#27C93F'; 
                     submitBtn.style.opacity = '1';
-                    form.reset(); // Clear inputs
+                    form.reset(); 
                 } else {
                     throw new Error('Form submission failed');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                // Error UI
                 submitBtn.innerHTML = '<span>❌</span> Failed to Send';
-                submitBtn.style.background = '#FF5F56'; // Red color
+                submitBtn.style.background = '#FF5F56'; 
                 submitBtn.style.opacity = '1';
                 
                 alert("Something went wrong! Make sure you clicked the FormSubmit activation link in your email if this is your first time. Alternatively, you can email me directly.");
             })
             .finally(() => {
-                // Revert button after 4 seconds
                 setTimeout(() => {
                     submitBtn.innerHTML = originalBtnHTML;
-                    submitBtn.style.background = ''; // remove inline color, revert to css gradient
+                    submitBtn.style.background = ''; 
                     submitBtn.disabled = false;
                 }, 4000);
             });
         }
 
-        // Smooth scroll for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1588,7 +1589,6 @@
             });
         });
 
-        // Intersection Observer for animations
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
